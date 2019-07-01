@@ -1,12 +1,12 @@
 ﻿module RobotName
 
 let generateName () = 
- let random = System.Random()
- let randomChar1 = ['A'..'Z'].[random.Next(25)]
- let randomChar2 = ['A'..'Z'].[random.Next(25)]
- sprintf "%c%c123" 
-  randomChar1 
-  randomChar2 
+    let random = System.Random()
+    let randomChar1 = ['A'..'Z'].[random.Next(25)]
+    let randomChar2 = ['A'..'Z'].[random.Next(25)]
+    sprintf "%c%c123" 
+        randomChar1 
+        randomChar2 
 
 type RobotType = {name:string;}
 
