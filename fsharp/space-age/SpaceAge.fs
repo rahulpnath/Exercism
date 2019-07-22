@@ -4,7 +4,7 @@ type Planet = Earth | Mercury | Venus | Mars | Jupiter | Saturn | Uranus | Neptu
 
 let secsPerYear = 31557600.0
 let calculateAge (earthYears:float) (seconds:int64) = 
-    System.Math.Round((seconds |> float) /(earthYears * secsPerYear), 2)
+    System.Math.Round(float seconds /(earthYears * secsPerYear), 2)
 
 let orbitalPeriodInEarthYears planet = 
     match planet with
