@@ -10,7 +10,7 @@ let add (student: string) (grade: int) (school: School): School =
     | Some students -> school.Add(grade, (student :: students) |> List.sort)
 
 let roster (school: School): string list = 
-    school |> Map.toSeq |> Seq.fold (fun acc (_, students) -> acc @ students) []
+    school |> Map.toList |> List.collect snd
 
 let grade (number: int) (school: School): string list = 
     match school.TryFind number with
