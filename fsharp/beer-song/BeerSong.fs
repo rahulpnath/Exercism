@@ -1,13 +1,6 @@
 ﻿module BeerSong
 
 let reciteLine number = 
-    let remaining = match number with 
-                    |1 -> "No more bottle" 
-                    |2 -> "1 bottle"
-                    |_ -> sprintf "%i bottles" (number-1)
-    let current = number |> if number = 1 then sprintf "%i bottle" else sprintf "%i bottles" 
-    let count = if number = 1 then "it" else "one"
-    
     match number with 
     |0 -> [
         "No more bottles of beer on the wall, no more bottles of beer."
@@ -17,16 +10,18 @@ let reciteLine number =
         "1 bottle of beer on the wall, 1 bottle of beer."
         "Take it down and pass it around, no more bottles of beer on the wall." 
         ]
-    |_ -> [
-        sprintf "%s of beer on the wall, %s of beer." current current
-        sprintf "Take %s down and pass it around, %s of beer on the wall." count remaining 
+    |2 -> [
+        "2 bottles of beer on the wall, 2 bottles of beer.";
+        "Take one down and pass it around, 1 bottle of beer on the wall."
+        ]
+    |n -> [
+        sprintf "%d bottles of beer on the wall, %d bottles of beer." n n;
+        sprintf "Take one down and pass it around, %d bottles of beer on the wall." (n-1)
         ]
 
 let recite (startBottles: int) (takeDown: int) = 
-    [startBottles-takeDown+1..startBottles] 
-    |> List.rev
-    |> List.collect (fun x -> "" :: (reciteLine x))
-    |> List.tail
- 
+    [startBottles.. -1 .. startBottles-takeDown+1] 
+    |> List.map reciteLine
+    |> List.reduce (fun acc elem -> acc @ [""] @ elem) 
  
 
