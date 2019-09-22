@@ -16,10 +16,9 @@ let matchNumber number =
 
 let chunkStringBySize size str =
     let rec loop (s:string) accum =
-        let branch = size < s.Length
-        match branch with
-        | true  -> loop (s.[size..]) (s.[0..size-1]::accum)
-        | false -> s::accum
+        if  size < s.Length 
+        then loop (s.[size..]) (s.[0..size-1]::accum)
+        else s::accum
     (loop str []) |> List.rev
 
 let parseNumberBlock (input: string list) = 
@@ -39,6 +38,9 @@ let parse (input: string list) =
     |> String.concat ","
 
 let convert (input: string list) = 
-    if input.Length % 4 = 0 && (input |> List.forall (fun x -> x.Length % 3 = 0))
+    let hasExpectedLineSize = input.Length % 4 = 0
+    let hasExpectedColumnSize = 
+        input |> List.forall (fun x -> x.Length % 3 = 0)
+    if hasExpectedLineSize && hasExpectedColumnSize 
     then Some (parse input)
     else None
